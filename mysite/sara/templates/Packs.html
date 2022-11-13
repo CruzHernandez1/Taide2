@@ -1,0 +1,21 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+    <h1> PAQUETES DE LA ALBERCA </h1>
+    <h2> Añadir paquete nuevo </h2>
+    {{error}} 
+    <form action="#" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Registrar
+        </button>
+    </form>
+    <h2>Paquetes existentes</h2>
+    {% for Pool_packs in Pool_packs %}
+    <li>
+        {{Pool_packs.nombre}} <br>
+        incluye: {{Pool_packs.descripcion|linebreaks}}
+        precio: ${{Pool_packs.precio}} Mxn <br>
+    </li>       
+{% endfor %}
+{%endblock%}

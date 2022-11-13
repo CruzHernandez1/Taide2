@@ -1,0 +1,13 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+    <h1>Informacion Personal</h1>
+    {{error}} 
+    <form action="/Profile/Information/", method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Save
+        </button>
+    </form>
+
+{%endblock%}

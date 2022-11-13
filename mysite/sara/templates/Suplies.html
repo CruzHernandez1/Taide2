@@ -1,0 +1,21 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+    <h1> SUMINISTROS DE ALBERCA</h1>
+    <h2> Añadir suministro nuevo </h2>
+    {{error}} 
+    <form action="#" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Registrar
+        </button>
+    </form>
+    <h2>Suministros actuales</h2>
+    {% for Pool_suplies in Pool_suplies %}
+    <li>
+        {{Pool_suplies.nombre}}<br>
+        {{Pool_suplies.descripcion}}<br>
+        cantidad inventario: {{Pool_suplies.cantidad_inventario}}<br><br>
+    </li>       
+{% endfor %}
+{%endblock%}

@@ -1,0 +1,38 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+    <h1>Mis picinas</h1>
+    {{error}} 
+    <h2>Administracion</h2>
+    <ul>
+        {% load static %}
+        {% for User_pools in User_pools %}
+        <li>
+            {{User_pools.nombre}} <br>
+            {{User_pools.direccion}} <br>
+            {{User_pools.costo_hora}} <br>
+            <img src="{{User_pools.imagen.url}}" alt="" width="200"> <br>
+        </li>       
+       
+    </ul>
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="/Profile/My_pools/Information/{{User_pools.id}}">Informacion</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Profile/My_pools/Suplies/{{User_pools.id}}">Suministros</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Profile/My_pools/Calendar/{{User_pools.id}}">Calendario</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="/Profile/My_pools/Packs/{{User_pools.id}}">Paquetes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Profile/My_pools/Providers/{{User_pools.id}}">Proveedores</a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Profile/My_pools/Galery/{{User_pools.id}}">Galerias</a>
+      </li>
+    </ul>
+    {% endfor %}
+{%endblock%}

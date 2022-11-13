@@ -1,0 +1,22 @@
+{% extends 'Navigation.html' %}
+{% block content %}
+<h1>Pofile</h1>
+{{error}}
+<ul>
+
+  {% for User_inf in User_inf %}
+    
+      Nombre :{{User_inf.nombre}} {{User_inf.apellido_paterno}} {{User_inf.apellido_materno}}<br>
+      Fecha de nacimiento: {{User_inf.fecha_nacimiento}}<br>
+      Direccion: {{User_inf.direccion}}<br>
+      Correo electronico: {{User_inf.correo_electronico}}<br>
+      telefono de contacto: {{User_inf.telefono_contacto}}<br>   
+  
+  {% endfor %}
+  <button>editar informacion personal</button>
+  <a href="/Profile/My_pools"><h1>Mis albercas</h1></a>
+  <a href="#"><h1>Mis reservaciones</h1></a>
+  
+</ul>
+
+{% endblock %}

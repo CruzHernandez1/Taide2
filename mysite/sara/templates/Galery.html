@@ -1,0 +1,19 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+    <h1>Galeria de imagenes de la alberca</h1><br>
+    <h2>Añadir imagenes a la galeria</h2>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>
+        Registrar
+    </button>
+    <h2>Imagenes añadidas</h2>
+    {{pool.nombre}}
+    {{pool.user}}
+    
+    {% for Pool_images in Pool_images %}
+        <li>
+            <img src="{{Pool_images.imagen.url}}" alt="" width="200"> <br>
+        </li>       
+    {% endfor %}
+{% endblock %}
