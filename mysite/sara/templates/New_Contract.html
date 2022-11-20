@@ -1,0 +1,14 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+    <h1>Crear el primer formato de contrato</h1>
+    {{error}} {{First_contract}}
+     <form action="#", method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Save
+        </button>
+    </form>
+    <br>
+    {% endfor %}
+{%endblock%}

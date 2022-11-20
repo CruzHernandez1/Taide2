@@ -1,21 +1,17 @@
 {%extends 'Navigation.html'%}
 {%block content%}
-    <h1> PAQUETES DE LA ALBERCA </h1>
-    <h2> Añadir paquete nuevo </h2>
-    {{error}} 
-    <form action="#" method="POST">
+    <h1> Informacion de la alberca </h1>
+    <form action="#" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         {{form.as_p}}
         <button>
             Registrar
         </button>
     </form>
-    <h2>Paquetes existentes</h2>
-    {% for Pool_packs in Pool_packs %}
+    {% for Pool_information in Pool_information%}
     <li>
-        {{Pool_packs.nombre}} <br>
-        incluye: {{Pool_packs.descripcion|linebreaks}}
-        precio: ${{Pool_packs.precio}} Mxn <br>
+        {{Pool_information.nombre}}
+        {{Pool_information.descripcion}}
     </li>       
 {% endfor %}
 {%endblock%}

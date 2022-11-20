@@ -2,7 +2,7 @@
 {%block content%}
     <h1> PAQUETES DE LA ALBERCA </h1>
     <h2> Añadir paquete nuevo </h2>
-    {{error}} 
+    {{error}} {{registered}}
     <form action="#" method="POST">
         {% csrf_token %}
         {{form.as_p}}

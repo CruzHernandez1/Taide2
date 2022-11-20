@@ -1,0 +1,36 @@
+{% extends 'Navigation.html' %}
+{%block content%}
+<h1>{{Pool.nombre}}</h1>
+<img src="{{Pool.imagen.url}}" alt="{{Pool.name}} image" width="200"> <br>
+{{Pool.direccion}}  <br>
+{{Pool.costo_hora}} <br>
+{{Pool.descripcion|linebreaks}} <br>
+
+<h2> Galeria </h2>
+{% for Galery in Galery %}
+<li>
+    <img src="{{Galery.imagen.url}}" alt="{{Galery.id}} image" width="200"> <br>
+    {{Galery.descripcion}} <br>
+</li>       
+{% endfor %}
+
+<h2>Paquetes</h2>
+
+{% for Pack in Pack %}
+<li>
+    {{Pack.nombre}} <br>
+    {{Pack.descripcion|linebreaks}} <br>
+    {{Pack.precio}} <br> <br>
+</li>       
+{% endfor %}
+
+<h1>Extras</h1>
+{% for Extra in Extra %}
+<li>
+    {{Extra.nombre}} <br>
+    {{Extra.descripcion|linebreaks}}
+    {{Extra.precio}} <br> <br>
+</li>       
+{% endfor %}
+
+{%endblock%}

@@ -1,7 +1,7 @@
 {%extends 'Navigation.html'%}
 {%block content%}
     <h1>Mis picinas</h1>
-    {{error}} 
+    {{error}} <a href="{{Reference}}">{{New_pool}}</a> 
     <h2>Administracion</h2>
     <ul>
         {% load static %}
@@ -10,6 +10,7 @@
             {{User_pools.nombre}} <br>
             {{User_pools.direccion}} <br>
             {{User_pools.costo_hora}} <br>
+            {{User_pools.descripcion|linebreaks}} <br>
             <img src="{{User_pools.imagen.url}}" alt="" width="200"> <br>
         </li>       
        
@@ -32,6 +33,9 @@
         </li>
       <li class="nav-item">
         <a class="nav-link" href="/Profile/My_pools/Galery/{{User_pools.id}}">Galerias</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/Profile/My_pools/Contract/{{User_pools.id}}">Contrato</a>
       </li>
     </ul>
     {% endfor %}

@@ -1,0 +1,21 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+    <h1>Proveedores</h1>
+    {{error}} 
+    <form action="#", method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Save
+        </button>
+    </form>
+    <br>
+    {% for Pool_provider in Pool_provider %}
+    <li>
+        {{Pool_provider.nombre}} <br>
+        {{Pool_provider.descripcion}} <br>
+        {{Pool_provider.telefono_contacto}}<br>
+        {{Pool_provider.correo_electronico}}<br>
+    </li>       
+    {% endfor %}
+{%endblock%}

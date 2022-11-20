@@ -64,4 +64,9 @@ class Proveedor(models.Model):
     picina = models.ForeignKey(Picina, on_delete = models.CASCADE)
     def __str__(self):
         return self.nombre + " - " + self.picina.nombre
-    
+
+class Contrato_texto(models.Model):
+    texto = models.TextField(max_length = 500)
+    picina = models.ForeignKey(Picina, on_delete = models.CASCADE)
+    def __str__(self):
+        return "Contrato de la picina: " + self.picina.nombre

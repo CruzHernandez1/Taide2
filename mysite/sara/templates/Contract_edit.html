@@ -1,0 +1,13 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+    <h1>Contrato con el clinete</h1>
+    <br>
+    <form action="#", method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Save
+        </button>
+    </form>
+    <br>
+{%endblock%}

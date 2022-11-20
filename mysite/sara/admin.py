@@ -6,7 +6,7 @@ from .models import Paquete_picina
 from .models import Añadido_paquete_picina
 from .models import Proveedor
 from .models import Suministro_picina
-
+from .models import Contrato_texto
 # Register your models here.
 admin.site.register(Informacion_Usuario)
 admin.site.register(Picina)
@@ -15,3 +15,4 @@ admin.site.register(Paquete_picina)
 admin.site.register(Añadido_paquete_picina)
 admin.site.register(Proveedor)
 admin.site.register(Suministro_picina)
+admin.site.register(Contrato_texto)

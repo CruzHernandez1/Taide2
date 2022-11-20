@@ -1,0 +1,9 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+    <h1>Contrato con el clinete</h1>
+    <br>
+    {% for Pool_contract in Pool_contract %}
+        {{Pool_contract.texto|linebreaks}}
+        <a href="/Profile/My_pools/Contract/Edit/{{Pool_contract.id}}">Editar</a>
+    {% endfor %}
+{%endblock%}
