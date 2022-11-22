@@ -1,13 +1,51 @@
 {%extends 'Navigation.html'%}
 {%block content%}
-    <h1>Contrato con el clinete</h1>
+<div class="dj-banner">
+    <div class="dj-bg">
+        <img src="\static\cocote.webp" alt="" width="400px" height="400px">
+        <div class="dj-text">
+            <h1><b>S A R A</b></h1>
+            <p>Sistema de administracion y renta de albercas</p> 
+            <p><b>Editar contrato</b></p> 
+            </a></p>
+        </div>
+    </div>            
+</div>
+
     <br>
-    <form action="#", method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button>
-            Save
-        </button>
-    </form>
+    <main calss = "container">
+        <div class="row">
+        <div class = "col-md-4 offset-md-4">
+            <p>{{error}}</p>
+            <form class = "card card-body text-center" action="#" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button>
+                    Aceptar
+                </button>
+            </form>
+        </div>
+        </div>
+    </main>
     <br>
+    <style>
+        .dj-banner{margin: 30px 0; position: relative;}
+  .dj-banner .dj-bg{background-color: #F8A796;}
+  .dj-banner .dj-bg img{display: block; margin: 20px auto; padding: 20px 0;}
+  .dj-banner .dj-text{text-align: center; padding-bottom: 20px;}
+  @media screen and (min-width:768px){
+     .dj-banner .dj-bg img{margin-right: 100px;}
+     .dj-banner .dj-text{position: absolute; top: 50%; left: 10%; transform: translate(-10%, -50%); width: 50%; text-align: left;}
+     .dj-banner .dj-text h1{font-size: calc(2*1.5vw);}
+     .dj-banner .dj-text p{font-size: calc(1.2*1.5vw);}
+  }
+  body{
+    background-color: #FCFAF9;
+}
+p{
+    font-size: 30px;
+}
+
+
+      </style>
 {%endblock%}

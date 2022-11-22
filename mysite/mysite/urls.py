@@ -36,5 +36,6 @@ urlpatterns = [
     path('Profile/My_pools/Contract/<int:Picina_id>', views.Contract, name = 'Contract'),
     path('Profile/My_pools/Contract/Edit/<int:Pool_contract_id>', views.Contract_edit, name = 'Contract_edit'),
     path('Profile/Edit/Pesonal-Information', views.Edit_personal_information, name = 'Edit_personal_information'),
-    path('Pools/<str:Pool_name>/<int:Pool_id>', views.Consult_pool, name = 'Consult_pool')
+    path('Pools/<str:Pool_name>/<int:Pool_id>', views.Consult_pool, name = 'Consult_pool'),
+    path('Pools/Rent/<str:Pool_name>/<int:Pool_id>', views.Rent_pool, name = 'Rent_pool'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

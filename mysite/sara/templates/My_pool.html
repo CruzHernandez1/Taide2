@@ -1,18 +1,38 @@
 {%extends 'Navigation.html'%}
 {%block content%}
-    <h1>Mis picinas</h1>
+<link href="../assets/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<div class="dj-banner">
+  <div class="dj-bg">
+      <img src="\static\cocote.webp" alt="" width="400px" height="400px">
+      <div class="dj-text">
+          <h1><b>S A R A</b></h1>
+          <p>Sistema de administracion y renta de albercas</p> 
+          <p><b>Mi picina</b></p> 
+          </a></p>
+      </div>
+  </div>            
+</div>
+
+
+  
     {{error}} <a href="{{Reference}}">{{New_pool}}</a> 
-    <h2>Administracion</h2>
+
     <ul>
         {% load static %}
         {% for User_pools in User_pools %}
-        <li>
-            {{User_pools.nombre}} <br>
-            {{User_pools.direccion}} <br>
-            {{User_pools.costo_hora}} <br>
-            {{User_pools.descripcion|linebreaks}} <br>
-            <img src="{{User_pools.imagen.url}}" alt="" width="200"> <br>
-        </li>       
+          <div class="container col-xxl-8 px-4 py-5">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+              <div class="col-10 col-sm-8 col-lg-6">
+                <img src="{{User_pools.imagen.url}}" class="img_a" alt="Bootstrap Themes" width="400" height="400" loading="lazy">
+              </div>
+              <div class="col-lg-6">
+                <h1 class="display-5 fw-bold lh-1 mb-3">{{User_pools.nombre}}</h1>
+                <p class="lead">Direccion: {{User_pools.direccion}}</p>
+                <p class="lead">{{User_pools.descripcion|linebreaks}}</p>
+                <p class="lead">${{User_pools.costo_hora}} Mxn/hora</p>
+              </div>
+            </div>
+          </div>    
        
     </ul>
     <ul class="nav justify-content-center">
@@ -39,4 +59,27 @@
       </li>
     </ul>
     {% endfor %}
+    <style>
+      .dj-banner{margin: 30px 0; position: relative;}
+.dj-banner .dj-bg{background-color: #F8A796;}
+.dj-banner .dj-bg img{display: block; margin: 20px auto; padding: 20px 0;}
+.dj-banner .dj-text{text-align: center; padding-bottom: 20px;}
+@media screen and (min-width:768px){
+   .dj-banner .dj-bg img{margin-right: 100px;}
+   .dj-banner .dj-text{position: absolute; top: 50%; left: 10%; transform: translate(-10%, -50%); width: 50%; text-align: left;}
+   .dj-banner .dj-text h1{font-size: calc(2*1.5vw);}
+   .dj-banner .dj-text p{font-size: calc(1.2*1.5vw);}
+}
+.img_a{
+    border-radius: 15px;
+    box-shadow: 0 3px 5px rgba(15, 15, 15, 15);
+}
+body{
+    background-color: #FCFAF9;
+}
+.nav-link{
+  font-size: 30px;
+}
+
+    </style>
 {%endblock%}

@@ -1,13 +1,75 @@
 {% extends 'Navigation.html' %}
 {% block content %}
-    <h1>Signup</h1>
-    {{error}}
-    <form action="/Signup/", method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button>
-            SignUp
-        </button>
-    </form>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<div class="dj-banner">
+    <div class="dj-bg">
+        <img src="\static\cocote.webp" alt="" width="400px" height="400px">
+        <div class="dj-text">
+            <h1><b>S A R A</b></h1>
+            <p>Sistema de administracion y renta de albercas</p> 
+            <p><b>Registrate</b></p> 
+            </a></p>
+        </div>
+    </div>            
+</div> 
+    
+    <main calss = "container">
+        <div class="row">
+        <div class = "col-md-4 offset-md-4">
+            <p>{{error}}</p>
+            <form class = "card card-body text-center" action="/Signup/" method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button>
+                    Entrar
+                </button>
+            </form>
+        </div>   
+        </div>
+    </main>
+    
+    <style>
+        .dj-banner{margin: 30px 0; position: relative;}
+        .dj-banner .dj-bg{background-color: #F8A796;}
+        .dj-banner .dj-bg img{display: block; margin: 20px auto; padding: 20px 0;}
+        .dj-banner .dj-text{text-align: center; padding-bottom: 20px;}
+        @media screen and (min-width:768px){
+           .dj-banner .dj-bg img{margin-right: 100px;}
+           .dj-banner .dj-text{position: absolute; top: 50%; left: 10%; transform: translate(-10%, -50%); width: 50%; text-align: left;}
+           .dj-banner .dj-text h1{font-size: calc(2*1.5vw);}
+           .dj-banner .dj-text p{font-size: calc(1.2*1.5vw);}
+        }
+        img{
+            border-radius: 15px;
+            box-shadow: 0 3px 5px rgba(15, 15, 15, 15);
+        }
+        h5{
+            font-size: 40px;
+        }
+        .linea {
+      border-top: 1px solid black;
+      height: 3px;
+      max-width: 100%;
+      padding: 0;
+      margin: 20px auto 0 auto;
+    }
+    h2{
+        font-size: 100;
+    }
+    body{
+        background-color: #FCFAF9;
+    }
+    p{
+    font-size: 30px;
+    }
+    
+    .price{
+        font-size: xx-large;    
+        background-color: #F8A796;
+    }
+    button{
+        font-size: 30px;
+    }
+     </style>
 {% endblock %}
 

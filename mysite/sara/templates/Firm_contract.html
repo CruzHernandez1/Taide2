@@ -1,0 +1,18 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+    Duracion del evento: {{N_hours}}
+        
+    {% for Contract_text in Contract_text %}
+        {{Contract_text.texto|linebreaks}} <br>
+    {% endfor %}
+    Incluira:
+    {% for Pack in Pack %}
+        {{Pack.descripcion|linebreaks}} <br>
+    {% endfor %}
+    Y como extra añadira:
+   {% for Extras in Extras %}
+     {{Extras.descripcion}} <br>
+   {% endfor %}
+  
+
+{%endblock%}

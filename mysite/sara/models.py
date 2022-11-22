@@ -70,3 +70,10 @@ class Contrato_texto(models.Model):
     picina = models.ForeignKey(Picina, on_delete = models.CASCADE)
     def __str__(self):
         return "Contrato de la picina: " + self.picina.nombre
+
+class Contrato_rentado(models.Model):
+    contenido = models.TextField(max_length=1000)
+    cliente = models.ForeignKey(User, on_delete = models.DO_NOTHING)
+    rentero = models.IntegerField()
+    def _str_(self):
+        return "Contrato firmado por " + self.cliente + " con " + self.rentero 

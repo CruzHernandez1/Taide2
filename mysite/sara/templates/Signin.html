@@ -1,13 +1,58 @@
 {% extends 'Navigation.html' %}
 {% block content %}
-<h1>Signin</h1>
-{{error}}
-<form action="/Signin/" method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>
-        Signin
-    </button>
-</form>
+<div class="dj-banner">
+    <div class="dj-bg">
+        <img src="\static\cocote.webp" alt="" width="400px" height="400px">
+        <div class="dj-text">
+            <h1><b>S A R A</b></h1>
+            <p>Sistema de administracion y renta de albercas</p> 
+            <p><b>Ingresa con tu cuenta</b></p> 
+            </a></p>
+        </div>
+    </div>            
+  </div>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+<main calss = "container">
+    <div class="row">
+    <div class = "col-md-4 offset-md-4">
+        <p>{{error}}</p>
+        <form class = "card card-body text-center" action="/Signin/" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button>
+                Entrar
+            </button>
+        </form>
+    </div>
+    </div>
+</main>
+<style>
+    .dj-banner{margin: 30px 0; position: relative;}
+.dj-banner .dj-bg{background-color: #F8A796;}
+.dj-banner .dj-bg img{display: block; margin: 20px auto; padding: 20px 0;}
+.dj-banner .dj-text{text-align: center; padding-bottom: 20px;}
+@media screen and (min-width:768px){
+ .dj-banner .dj-bg img{margin-right: 100px;}
+ .dj-banner .dj-text{position: absolute; top: 50%; left: 10%; transform: translate(-10%, -50%); width: 50%; text-align: left;}
+ .dj-banner .dj-text h1{font-size: calc(2*1.5vw);}
+ .dj-banner .dj-text p{font-size: calc(1.2*1.5vw);}
+}
+.img_a{
+  border-radius: 15px;
+  box-shadow: 0 3px 5px rgba(15, 15, 15, 15);
+}
+body{
+  background-color: #FCFAF9;
+}
+
+p{
+    font-size: 30px;
+}
+button{
+    font-size: 30px;
+}
+  </style>
 
 {% endblock %}

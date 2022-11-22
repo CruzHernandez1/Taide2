@@ -1,22 +1,51 @@
 {% extends 'Navigation.html' %}
 {% block content %}
-<h1>Pofile</h1>
+<div class="dj-banner">
+  <div class="dj-bg">
+      <img src="\static\cocote.webp" alt="" width="400px" height="400px">
+      <div class="dj-text">
+          <h1><b>S A R A</b></h1>
+          <p>Sistema de administracion y renta de albercas</p> 
+          <p><b>Perfil</b></p> 
+          </a></p>
+      </div>
+  </div>            
+</div>
+
 {{error}}
 <ul>
-
   {% for User_inf in User_inf %}
-    
-      Nombre :{{User_inf.nombre}} {{User_inf.apellido_paterno}} {{User_inf.apellido_materno}}<br>
-      Fecha de nacimiento: {{User_inf.fecha_nacimiento}}<br>
-      Direccion: {{User_inf.direccion}}<br>
-      Correo electronico: {{User_inf.correo_electronico}}<br>
-      telefono de contacto: {{User_inf.telefono_contacto}}<br>   
+  <div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">{{User_inf.nombre}} {{User_inf.apellido_paterno}} {{User_inf.apellido_materno}}</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">{{User_inf.fecha_nacimiento}}</p>
+      <p class="lead mb-4">{{User_inf.direccion}}</p>
+      <p class="lead mb-4">{{User_inf.correo_electronico}}</p>
+      <p class="lead mb-4">{{User_inf.telefono_contacto}}</p>
       <a href="/Profile/Edit/Pesonal-Information">Editar informacion</a>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="/Profile/My_pools"><h1><button type="button" class="btn btn-primary btn-lg px-4 gap-3">Mi alberca</button></h1></a>
+        <a href="#"><h1><button type="button" class="btn btn-outline-primary btn-lg px-4">Mis reservaciones</button></h1></a>
+      </div>
+    </div>
+  </div>
   {% endfor %}
-
-  <a href="/Profile/My_pools"><h1>Mis albercas</h1></a>
-  <a href="#"><h1>Mis reservaciones</h1></a>
   
 </ul>
+<style>
+  .dj-banner{margin: 30px 0; position: relative;}
+.dj-banner .dj-bg{background-color: #F8A796;}
+.dj-banner .dj-bg img{display: block; margin: 20px auto; padding: 20px 0;}
+.dj-banner .dj-text{text-align: center; padding-bottom: 20px;}
+@media screen and (min-width:768px){
+.dj-banner .dj-bg img{margin-right: 100px;}
+.dj-banner .dj-text{position: absolute; top: 50%; left: 10%; transform: translate(-10%, -50%); width: 50%; text-align: left;}
+.dj-banner .dj-text h1{font-size: calc(2*1.5vw);}
+.dj-banner .dj-text p{font-size: calc(1.2*1.5vw);}
+}
+body{
+    background-color: #FCFAF9;
+}
 
+</style>
 {% endblock %}

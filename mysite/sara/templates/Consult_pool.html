@@ -1,36 +1,114 @@
 {% extends 'Navigation.html' %}
 {%block content%}
-<h1>{{Pool.nombre}}</h1>
-<img src="{{Pool.imagen.url}}" alt="{{Pool.name}} image" width="200"> <br>
-{{Pool.direccion}}  <br>
-{{Pool.costo_hora}} <br>
-{{Pool.descripcion|linebreaks}} <br>
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+crossorigin="anonymous"
+/>
 
-<h2> Galeria </h2>
-{% for Galery in Galery %}
-<li>
-    <img src="{{Galery.imagen.url}}" alt="{{Galery.id}} image" width="200"> <br>
-    {{Galery.descripcion}} <br>
-</li>       
-{% endfor %}
+<div class="dj-banner">
+    <div class="dj-bg">
+        <img src="{{Pool.imagen.url}}" alt="" width="400px" height="400px">
+        <div class="dj-text">
+            <h1><b>{{Pool.nombre}}</b></h1>
+            <p>${{Pool.costo_hora}}Mxn / hora</p>
+            <p><a href="/Pools/Rent/{{Pool.nombre}}/{{Pool.id}}"><label style="border-radius: 5px; background: #ce2032; border-color:#ce2032;  height:44px; color: white; width: 152px; text-align: center; font-size: 16px; padding: 10px 0;">Rentar</label> 
+            </a></p>
+        </div>
+    </div>            
+</div>
+<div class="px-4 py-5 my-5 text-center">
+    <p>{{Pool.descripcion|linebreaks}}</p>
+    <h1 class="display-5 fw-bold">Contacto</h1>
+    {% for Contact in Contact %}
+    <p>{{Contact.nombre}} {{Contact.apellido_paterno}} {{Contact.apellido_materno}}</p>
+    <p>{{Contact.telefono_contacto}}{{Contact.id}}</p>
+    <p>{{Contact.correo_electronico}}</p>
+    {% endfor %}
+    <h1 class="display-5 fw-bold">Direccion</h1>
+    <div class="col-lg-6 mx-auto">
+      <p >{{Pool.direccion}}</p>
+    </div>
+  </div>
+<div class="px-4 py-5 my-5 text-center">
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active" data-bs-interval="10000">
+            <img src="{{Pool.imagen.url}}"  alt="..." width="500" height="500">
+            <h5>{{Pool.nombre}}</h5>
+          </div>
+          {% for Galery in Galery %}
+          <div class="carousel-item">
+            <img src="{{Galery.imagen.url}}"  alt="..." width="500" height="500">
+            <h5>{{Galery.descripcion}}</h5> 
+          </div>
+          {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+</div>
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Paquetes</h1>
+    <div class="col-lg-6 mx-auto">
+    </div>
+    {% for Pack in Pack %}
+    <main class="container">
+        <div class="bg-light p-5 rounded s">
+          <h1>{{Pack.nombre}}</h1>
+          <p class="lead">{{Pack.descripcion|linebreaks}}</p>
+          <p class="price">${{Pack.precio}} Mxn</p>
+        </div>
+      </main>  
+    {% endfor %}
+  </div>
 
-<h2>Paquetes</h2>
+<style>
+    .dj-banner{margin: 30px 0; position: relative;}
+    .dj-banner .dj-bg{background-color: #F8A796;}
+    .dj-banner .dj-bg img{display: block; margin: 20px auto; padding: 20px 0;}
+    .dj-banner .dj-text{text-align: center; padding-bottom: 20px;}
+    @media screen and (min-width:768px){
+       .dj-banner .dj-bg img{margin-right: 100px;}
+       .dj-banner .dj-text{position: absolute; top: 50%; left: 10%; transform: translate(-10%, -50%); width: 50%; text-align: left;}
+       .dj-banner .dj-text h1{font-size: calc(2*1.5vw);}
+       .dj-banner .dj-text p{font-size: calc(1.2*1.5vw);}
+    }
+    img{
+        border-radius: 15px;
+        box-shadow: 0 3px 5px rgba(15, 15, 15, 15);
+    }
+    h5{
+        font-size: 40px;
+    }
+    .linea {
+  border-top: 1px solid black;
+  height: 3px;
+  max-width: 100%;
+  padding: 0;
+  margin: 20px auto 0 auto;
+}
+h2{
+    font-size: 100;
+}
+body{
+    background-color: #FCFAF9;
+}
+p{
+    font-size:x-large;
+}
 
-{% for Pack in Pack %}
-<li>
-    {{Pack.nombre}} <br>
-    {{Pack.descripcion|linebreaks}} <br>
-    {{Pack.precio}} <br> <br>
-</li>       
-{% endfor %}
-
-<h1>Extras</h1>
-{% for Extra in Extra %}
-<li>
-    {{Extra.nombre}} <br>
-    {{Extra.descripcion|linebreaks}}
-    {{Extra.precio}} <br> <br>
-</li>       
-{% endfor %}
+.price{
+    font-size: xx-large;    
+    background-color: #F8A796;
+}
+ </style>
 
 {%endblock%}

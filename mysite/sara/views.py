@@ -306,16 +306,47 @@ def Contract_edit(request, Pool_contract_id):
     else:
         form = Contract_text(request.POST, instance = Contract)
         form.save()
-        return redirect('/')
+        return redirect('/Profile/My_pools')
 
 def Consult_pool(request, Pool_name, Pool_id):
     Pool = get_object_or_404(Picina, pk = Pool_id)
     Pack = Paquete_picina.objects.filter(picina = Pool)
     Galery = Galeria_picina.objects.filter(picina = Pool)
-    Extra = Añadido_paquete_picina.objects.filter(picina = Pool)
+    Contact = Informacion_Usuario.objects.filter(user = Pool.user)
     return render(request, 'Consult_pool.html',{
         'Pool': Pool,
         'Galery': Galery,
         'Pack': Pack,
-        'Extra': Extra
+        'Contact': Contact
     })
+
+def Rent_pool(request, Pool_name, Pool_id):
+    Pool = get_object_or_404(Picina, pk = Pool_id)
+    Packs = Paquete_picina.objects.filter(picina = Pool)
+    Extra = Añadido_paquete_picina.objects.filter(picina = Pool)
+    if request.method == 'GET':
+        return render(request, 'Rent.html',{
+            'Pool': Pool,
+            'Packs': Packs,
+            'Extra': Extra
+        })
+    else:
+        Pool = get_object_or_404(Picina, pk = Pool_id)
+        Pool_contract = Contrato_texto.objects.filter(picina = Pool)
+        Extra = Añadido_paquete_picina.objects.filter(picina = Pool)
+        N_hours = request.POST['numero_horas']
+        Pack = request.POST['inlineRadioOptions']
+        Pack_content = Paquete_picina.objects.filter(id = Pack)
+        Extra = request.POST.getlist('caja')
+        Extras = []
+        for i in range (0,len(Extra)):
+            Extras.append(get_object_or_404(Añadido_paquete_picina, pk = Extra[i]))
+        id = Pool.id
+        Pool = get_object_or_404(Picina, pk = Pool_id)
+        return render(request, 'Firm_contract.html',{
+            'Contract_text': Pool_contract,
+            'Pool_id': id,
+            'N_hours': N_hours,
+            'Pack': Pack_content,
+            'Extras': Extras
+        })

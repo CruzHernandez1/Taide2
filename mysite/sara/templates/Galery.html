@@ -1,24 +1,59 @@
 {%extends 'Navigation.html'%}
 {%block content%}
-    <h1>Galeria de imagenes de la alberca</h1><br>
-    <h2>Añadir imagenes a la galeria</h2>
-    {{error}}
-    <form action="#" enctype="multipart/form-data" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button>
-            Registrar
-        </button>
-    </form>
-
+    <div class="dj-banner">
+        <div class="dj-bg">
+            <img src="\static\cocote.webp" alt="" width="400px" height="400px">
+            <div class="dj-text">
+                <h1><b>S A R A</b></h1>
+                <p>Sistema de administracion y renta de albercas</p> 
+                <p><b>Galeria</b></p> 
+                </a></p>
+            </div>
+        </div>            
+    </div>
    
-    <h2>Imagenes añadidas</h2>
-    {{pool.nombre}}
-    {{pool.user}}
-    
+    <main calss = "container">
+        <div class="row">
+        <div class = "col-md-4 offset-md-4">
+            <p>{{error}}</p>
+            <form class = "card card-body text-center" action="#" method="POST">
+                <h2>Añadir imagenes a la galeria</h2>
+                {% csrf_token %}
+                {{form.as_p}}
+                <button>
+                    Aceptar
+                </button>
+            </form>
+        </div>
+        </div>
+    </main>    
     {% for Pool_images in Pool_images %}
-        <li>
-            <img src="{{Pool_images.imagen.url}}" alt="" width="200"> <br>
-        </li>       
+    <div class="px-4 py-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4 img_a" src="{{Pool_images.imagen.url}}" alt="" width="400" height="400">
+        <h1 class="display-5 fw-bold">{{Pool_images.descripcion}}</h1>
+            <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Eliminar</button>
+          </div>
+        </div>
+      </div> 
     {% endfor %}
+    <style>
+        .dj-banner{margin: 30px 0; position: relative;}
+  .dj-banner .dj-bg{background-color: #F8A796;}
+  .dj-banner .dj-bg img{display: block; margin: 20px auto; padding: 20px 0;}
+  .dj-banner .dj-text{text-align: center; padding-bottom: 20px;}
+  @media screen and (min-width:768px){
+     .dj-banner .dj-bg img{margin-right: 100px;}
+     .dj-banner .dj-text{position: absolute; top: 50%; left: 10%; transform: translate(-10%, -50%); width: 50%; text-align: left;}
+     .dj-banner .dj-text h1{font-size: calc(2*1.5vw);}
+     .dj-banner .dj-text p{font-size: calc(1.2*1.5vw);}
+  }
+  p{
+    font-size: 30px;
+}
+.img_a{
+        border-radius: 15px;
+        box-shadow: 0 3px 5px rgba(15, 15, 15, 15);
+    }
+
+      </style>
 {% endblock %}
