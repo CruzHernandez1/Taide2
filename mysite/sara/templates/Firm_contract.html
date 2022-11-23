@@ -1,18 +1,34 @@
 {%extends 'Navigation.html'%}
-{%block content%}
-    Duracion del evento: {{N_hours}}
-        
-    {% for Contract_text in Contract_text %}
-        {{Contract_text.texto|linebreaks}} <br>
-    {% endfor %}
-    Incluira:
-    {% for Pack in Pack %}
-        {{Pack.descripcion|linebreaks}} <br>
-    {% endfor %}
-    Y como extra añadira:
-   {% for Extras in Extras %}
-     {{Extras.descripcion}} <br>
-   {% endfor %}
+{%block content%}  
+<form action="#" method="POST" id = "frm">
+<div class="px-4 py-5 my-5 text-center" >
   
-
+    <h1 class="display-5 fw-bold">Contrato</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4 pp">{% for Contract_text in Contract_text %} {{Contract_text.texto|linebreaks}} <br>{% endfor %}</p>
+      <p class="lead mb-4 pp">{% for N_hours in N_hours %} Duracion del evento: {{N_hours}} horas <br>{% endfor %}</p>
+      <p class="lead mb-4 pp">{% for Pack in Pack %}{{Pack.descripcion|linebreaks}} <br>{% endfor %}</p>
+      <p class="lead mb-4 pp">Y como extra añadira: <br>{% for Extras in Extras %}{{Extras.descripcion}}<br>{% endfor %}</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <input class="form-check-input pp2" type="checkbox" name = "caja" id="inlineCheckbox1" value="Terms" required>
+        <label class="form-check-label pp2" for="inlineCheckbox1" >Aceptar terminos y condiciones</label>
+        <button>Continuar</button>
+      </div>
+    </div>
+</div>
+<textarea name="" id="" cols="30" rows="10">
+    {% for Contract_text in Contract_text %} {{Contract_text.texto}}{% endfor %}
+</textarea>
+</form>
+<style>
+    p{
+        font-size: 30px;
+    }
+    .pp{
+        font-size: 30px;
+    }
+    .pp2{
+        font-size: 20px;
+    }
+</style>
 {%endblock%}
