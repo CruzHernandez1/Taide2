@@ -1,25 +1,47 @@
 {%extends 'Navigation.html'%}
 {%block content%}  
-<form action="#" method="POST" id = "frm">
-<div class="px-4 py-5 my-5 text-center" >
-  
-    <h1 class="display-5 fw-bold">Contrato</h1>
-    <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4 pp">{% for Contract_text in Contract_text %} {{Contract_text.texto|linebreaks}} <br>{% endfor %}</p>
-      <p class="lead mb-4 pp">{% for N_hours in N_hours %} Duracion del evento: {{N_hours}} horas <br>{% endfor %}</p>
-      <p class="lead mb-4 pp">{% for Pack in Pack %}{{Pack.descripcion|linebreaks}} <br>{% endfor %}</p>
-      <p class="lead mb-4 pp">Y como extra añadira: <br>{% for Extras in Extras %}{{Extras.descripcion}}<br>{% endfor %}</p>
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <input class="form-check-input pp2" type="checkbox" name = "caja" id="inlineCheckbox1" value="Terms" required>
-        <label class="form-check-label pp2" for="inlineCheckbox1" >Aceptar terminos y condiciones</label>
-        <button>Continuar</button>
-      </div>
-    </div>
-</div>
-<textarea name="" id="" cols="30" rows="10">
-    {% for Contract_text in Contract_text %} {{Contract_text.texto}}{% endfor %}
+<link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/heroes/">
+<!-- Replace "test" with your own sandbox Business account app client ID -->
+<script src="https://www.paypal.com/sdk/js?client-id=AROiVbckHn81i8o2Rexwo1193dp3Foas-904O-exbQlwpCufNsGkKTlhJ5rdWMHp0D1mFxJv3JgrgTv-&currency=USD"></script>
+<!-- Set up a container element for the button -->
+<div id="paypal-button-container"></div>
+<script>
+  paypal.Buttons({
+    // Sets up the transaction when a payment button is clicked
+    createOrder: (data, actions) => {
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: '77.44' // Can also reference a variable or function
+          }
+        }]
+      });
+    },
+    // Finalize the transaction after payer approval
+    onApprove: (data, actions) => {
+      return actions.order.capture().then(function(orderData) {
+        // Successful capture! For dev/demo purposes:
+        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+        const transaction = orderData.purchase_units[0].payments.captures[0];
+        alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+        
+        // When ready to go live, remove the alert and show a success message within this page. For example:
+        // const element = document.getElementById('paypal-button-container');
+        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+        // Or go to another URL:  actions.redirect('thank_you.html');
+      });
+    }
+  }).render('#paypal-button-container');
+</script>
+
+<textarea name="ContractTerms" id="" cols="30" rows="10" style="visibility:hidden">
+{% for Contract_text in Contract_text %}{{Contract_text.texto}}{% endfor %}
+{% for N_hours in N_hours %}Duracion del evento: {{N_hours}} horas {% endfor %}
+{% for Pack in Pack %}{{Pack.descripcion}} {% endfor %}
+Y como extra añadira:
+{% for Extras in Extras %}{{Extras.descripcion}}{% endfor %}
+
 </textarea>
-</form>
 <style>
     p{
         font-size: 30px;
@@ -31,4 +53,6 @@
         font-size: 20px;
     }
 </style>
+
 {%endblock%}
+ 

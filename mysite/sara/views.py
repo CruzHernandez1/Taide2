@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django import forms
+from django.contrib.admin.widgets import AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
 from .forms import Fill_profile_information
 from .forms import Register_pool
 from .forms import Register_pool_image
@@ -10,6 +12,8 @@ from .forms import Register_pool_pack
 from .forms import Register_pool_suply
 from .forms import Register_provider
 from .forms import Contract_text
+from .forms import Date
+from django.db import models
 #from .forms import Register_pool_information
 from .models import Informacion_Usuario
 from .models import Picina
@@ -324,29 +328,33 @@ def Rent_pool(request, Pool_name, Pool_id):
     Pool = get_object_or_404(Picina, pk = Pool_id)
     Packs = Paquete_picina.objects.filter(picina = Pool)
     Extra = Añadido_paquete_picina.objects.filter(picina = Pool)
+    firmado = 0
+    Pool_contract = Contrato_texto.objects.filter(picina = Pool)
     if request.method == 'GET':
         return render(request, 'Rent.html',{
+            'Date_time': Date,
             'Pool': Pool,
             'Packs': Packs,
-            'Extra': Extra
+            'Extra': Extra,
+            'Contract_text': Pool_contract,
         })
-    else:
+    else:        
         Pool = get_object_or_404(Picina, pk = Pool_id)
         Pool_contract = Contrato_texto.objects.filter(picina = Pool)
         Extra = Añadido_paquete_picina.objects.filter(picina = Pool)
-        N_hours = request.POST['numero_horas']
         Pack = request.POST['inlineRadioOptions']
         Pack_content = Paquete_picina.objects.filter(id = Pack)
         Extra = request.POST.getlist('caja')
         Extras = []
         for i in range (0,len(Extra)):
             Extras.append(get_object_or_404(Añadido_paquete_picina, pk = Extra[i]))
-        id = Pool.id
-        Pool = get_object_or_404(Picina, pk = Pool_id)
-        return render(request, 'Firm_contract.html',{
-            'Contract_text': Pool_contract,
-            'Pool_id': id,
-            'N_hours': N_hours,
-            'Pack': Pack_content,
-            'Extras': Extras
-        })
+            id = Pool.id
+            Pool = get_object_or_404(Picina, pk = Pool_id)
+            firmado = 1
+            return render(request, 'Firm_contract.html',{
+                'Contract_text': Pool_contract,
+                'Pool_id': id,
+                'Pack': Pack_content,
+                'Extras': Extras
+            })
+

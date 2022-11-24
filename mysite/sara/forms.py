@@ -7,6 +7,10 @@ from .models import Añadido_paquete_picina
 from .models import Proveedor
 from .models import Suministro_picina
 from .models import Contrato_texto
+from .models import cita
+from django.db.models import fields
+from django import  forms
+from django.contrib.admin.widgets import  AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
 
 class Fill_profile_information(ModelForm):
     class Meta:
@@ -47,3 +51,8 @@ class Contract_text(ModelForm):
     class Meta:
         model = Contrato_texto
         fields = ['texto']
+
+class Date(ModelForm):
+    class Meta:
+        model = cita
+        fields = ['fecha_inicio', 'hora_inicio', 'hora_fin']

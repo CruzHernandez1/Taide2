@@ -77,3 +77,14 @@ class Contrato_rentado(models.Model):
     rentero = models.IntegerField()
     def _str_(self):
         return "Contrato firmado por " + self.cliente + " con " + self.rentero 
+
+class cita(models.Model):
+    fecha_inicio = models.DateField()
+    hora_inicio = models.TimeField()
+    fecha_fin = models.DateField()
+    hora_fin = models.TimeField()
+    rentero = models.IntegerField()
+    cliente = models.ForeignKey(User, on_delete = models.DO_NOTHING)
+    
+    def _str_(self):
+        return "Cita para: " + self.cliente + " el " + self.fecha

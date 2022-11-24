@@ -8,6 +8,7 @@ from .models import Proveedor
 from .models import Suministro_picina
 from .models import Contrato_texto
 from .models import Contrato_rentado
+from .models import cita
 # Register your models here.
 admin.site.register(Informacion_Usuario)
 admin.site.register(Picina)
@@ -18,3 +19,4 @@ admin.site.register(Proveedor)
 admin.site.register(Suministro_picina)
 admin.site.register(Contrato_texto)
 admin.site.register(Contrato_rentado)
+admin.site.register(cita)
