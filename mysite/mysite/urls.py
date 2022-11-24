@@ -38,4 +38,5 @@ urlpatterns = [
     path('Profile/Edit/Pesonal-Information', views.Edit_personal_information, name = 'Edit_personal_information'),
     path('Pools/<str:Pool_name>/<int:Pool_id>', views.Consult_pool, name = 'Consult_pool'),
     path('Pools/Rent/<str:Pool_name>/<int:Pool_id>', views.Rent_pool, name = 'Rent_pool'),
+    #path('Pools/Terms/<str:Pool_name>/<int:Pool_id>', views.Terms, name = 'Terms'),
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
