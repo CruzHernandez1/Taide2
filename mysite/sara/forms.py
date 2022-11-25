@@ -7,6 +7,7 @@ from .models import Añadido_paquete_picina
 from .models import Proveedor
 from .models import Suministro_picina
 from .models import Contrato_texto
+from .models import Contrato_rentado
 from .models import cita
 from django.db.models import fields
 from django import  forms
@@ -52,7 +53,13 @@ class Contract_text(ModelForm):
         model = Contrato_texto
         fields = ['texto']
 
+class Contract_Rent_text(ModelForm):
+    class Meta:
+        model = Contrato_rentado
+        fields = ['contenido']
+
 class Date(ModelForm):
     class Meta:
         model = cita
         fields = ['fecha_inicio', 'hora_inicio', 'hora_fin']
+

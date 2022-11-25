@@ -19,7 +19,7 @@
     <div class = "col-md-4 offset-md-4">
         
         <form id = "pagado" class = "card card-body text-center" action="#" method="POST">
-            <p class = "pp">{{error}}</p>
+            <strong><p class = "pp">{{error}}</p></strong>
             {% csrf_token %}
             <p>Escribe en este formato fecha: 2022-11-24 hora: 02:43:51</p>
             {{Date_time.as_p}}
@@ -42,42 +42,9 @@
             {% endfor %} <br>
             <p class="lead mb-4 pp">{% for Contract_text in Contract_text %} {{Contract_text.texto|linebreaks}} <br>{% endfor %}</p>
             <p>
-            <input class="form-check-input pp2" type="checkbox" name = "caja" id="inlineCheckbox1" value="Terms" required>
+            <input class="form-check-input pp2" type="checkbox" name = "terms" id="inlineCheckbox1" required>
             <label class="form-check-label pp2" for="inlineCheckbox1" >Aceptar terminos y condiciones</label>
             </p>
-            <!-- Replace "test" with your own sandbox Business account app client ID -->
-<script src="https://www.paypal.com/sdk/js?client-id=AROiVbckHn81i8o2Rexwo1193dp3Foas-904O-exbQlwpCufNsGkKTlhJ5rdWMHp0D1mFxJv3JgrgTv-&currency=MXN"></script>
-<!-- Set up a container element for the button -->
-<div id="paypal-button-container"></div>
-<script>
-  paypal.Buttons({
-    // Sets up the transaction when a payment button is clicked
-    createOrder: (data, actions) => {
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: '2' // Can also reference a variable or function
-          }
-        }]
-      });
-    },
-    // Finalize the transaction after payer approval
-    onApprove: (data, actions) => {
-      return actions.order.capture().then(function(orderData) {
-        // Successful capture! For dev/demo purposes:
-        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-        const transaction = orderData.purchase_units[0].payments.captures[0];
-        //alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
-        
-        // When ready to go live, remove the alert and show a success message within this page. For example:
-        // const element = document.getElementById('paypal-button-container');
-        // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-        //actions.redirect('/');
-        document.getElementById('pagado').submit();
-        //window.location.replace("/");
-      });
-    }
-  }).render('#paypal-button-container');
 </script>
             <button>
                 Aceptar

@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from datetime import datetime
+import datetime
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
@@ -12,6 +14,7 @@ from .forms import Register_pool_pack
 from .forms import Register_pool_suply
 from .forms import Register_provider
 from .forms import Contract_text
+from .forms import Contract_Rent_text
 from .forms import Date
 from django.db import models
 #from .forms import Register_pool_information
@@ -23,7 +26,8 @@ from .models import Añadido_paquete_picina
 from .models import Suministro_picina
 from .models import Proveedor
 from .models import Contrato_texto 
-
+from .models import cita
+from .models import Contrato_rentado
 # Create your views here.
 def Home(request):
     Pools = Picina.objects.all()
@@ -328,7 +332,6 @@ def Rent_pool(request, Pool_name, Pool_id):
     Pool = get_object_or_404(Picina, pk = Pool_id)
     Packs = Paquete_picina.objects.filter(picina = Pool)
     Extra = Añadido_paquete_picina.objects.filter(picina = Pool)
-    firmado = 0
     Pool_contract = Contrato_texto.objects.filter(picina = Pool)
     if request.method == 'GET':
         return render(request, 'Rent.html',{
@@ -339,22 +342,92 @@ def Rent_pool(request, Pool_name, Pool_id):
             'Contract_text': Pool_contract,
         })
     else:        
-        Pool = get_object_or_404(Picina, pk = Pool_id)
-        Pool_contract = Contrato_texto.objects.filter(picina = Pool)
-        Extra = Añadido_paquete_picina.objects.filter(picina = Pool)
-        Pack = request.POST['inlineRadioOptions']
-        Pack_content = Paquete_picina.objects.filter(id = Pack)
-        Extra = request.POST.getlist('caja')
-        Extras = []
-        for i in range (0,len(Extra)):
-            Extras.append(get_object_or_404(Añadido_paquete_picina, pk = Extra[i]))
-            id = Pool.id
-            Pool = get_object_or_404(Picina, pk = Pool_id)
-            firmado = 1
-            return render(request, 'Firm_contract.html',{
+        try:
+            texto = request.POST['ContractTerms']
+            fi = request.POST['fecha_inicio']
+            hi = request.POST['hora_inicio']
+            hf = request.POST['hora_fin']
+            try:                
+                SaveDateForm = Contract_Rent_text()
+                SaveDate = SaveDateForm.save(commit = False)
+                SaveDate.contenido = texto
+                SaveDate.fecha_inicio = fi
+                SaveDate.fecha_fin = fi
+                SaveDate.hora_inicio = hi
+                SaveDate.hora_fin = hf
+                SaveDate.rentero = Pool.id
+                SaveDate.cliente = request.user
+                SaveDate.save()
+            except:
+                print(texto)
+                print(Pool.id)
+                print(request.user)
+                print(fi)
+                print(hi)
+                print(hf)
+            return redirect("/Pools/Profile/My_reservation")
+        except:
+            fi = request.POST['fecha_inicio']
+            hi = request.POST['hora_inicio']
+            hf = request.POST['hora_fin']
+            Dates = Contrato_rentado.objects.filter(rentero = Pool.id, fecha_inicio = fi, hora_inicio__range=[hi, hf], hora_fin__range=[hi, hf])
+            if(len(Dates)>0):
+                return render(request, 'Rent.html',{
+                'Date_time': Date,
+                'Pool': Pool,
+                'Packs': Packs,
+                'Extra': Extra,
                 'Contract_text': Pool_contract,
-                'Pool_id': id,
-                'Pack': Pack_content,
-                'Extras': Extras
-            })
+                'error': "La fecha/hora esta mal escrita o esta ocupada"
+                })
+            else:
+                costoTotal = 0
+                Pool_contract = Contrato_texto.objects.filter(picina = Pool)
+                Extra = Añadido_paquete_picina.objects.filter(picina = Pool)
+                Pack = request.POST['inlineRadioOptions']
+                Pack_content = get_object_or_404(Paquete_picina, pk = Pack)
+                Extra = request.POST.getlist('caja')
+                costoTotal += Pack_content.precio
+                Extras = []
+                format = '%H:%M:%S'
+                datetime_str = datetime.datetime.strptime(hf, format)
+                datetime_str2 = datetime.datetime.strptime(hi, format)
+                timediff = datetime_str - datetime_str2
+                toFloat = timediff.total_seconds()
+                toFloat = (toFloat/60)/60
+                costoTotal += float(toFloat) * Pool.costo_hora
+                for i in range (0,len(Extra)):
+                    Extras.append(get_object_or_404(Añadido_paquete_picina, pk = Extra[i]))
+                    costoTotal += Extras[i].precio
 
+                print(costoTotal)
+                return render(request, 'Firm_contract.html',{
+                    'Contract_text': Pool_contract,
+                    'Pack': Pack_content,
+                    'Extras': Extras,
+                    'fi': fi,
+                    'hi': hi,
+                    'hf': hf,
+                    'costo_total': costoTotal
+                })
+
+def My_reservations(request):
+    My_rents = Contrato_rentado.objects.filter(cliente=request.user)
+    return render(request, 'My_reservations.html',{
+        'My_rents': My_rents,
+    })
+
+def My_pool_reservations(request, Picina_id):
+    My_pool_rents = Contrato_rentado.objects.filter(rentero = Picina_id)
+    return render(request, 'My_pool_reservations.html',{
+        'My_pool_rents': My_pool_rents
+    })
+
+
+def View_contract(request,Contract_id):
+    Contract = get_object_or_404(Contrato_rentado, pk = Contract_id) 
+    Pooldata = get_object_or_404(Picina, pk = Contract.rentero) 
+    return render(request, 'View_contract.html',{
+        'Contract': Contract,
+        'Pooldata': Pooldata
+    })

@@ -1,0 +1,86 @@
+{%extends 'Navigation.html'%}
+{%block content%}
+<link href="../assets/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<div class="dj-banner">
+    <div class="dj-bg">
+        <img src="\static\cocote.webp" alt="" width="400px" height="400px">
+        <div class="dj-text">
+            <h1><b>S A R A</b></h1>
+            <p>Sistema de administracion y renta de albercas</p>
+            <p><b>Mis reservaciones</b></p>
+            </a></p>
+        </div>
+    </div>
+</div>
+<div class="px-4 py-5 my-5 text-center pp">
+
+    <h1 class="display-5 fw-bold">{{Pooldata.nombre}}</h1>
+    <h2>{{Contract.fecha_inicio}}</h2>
+    <h3>{{Contract.hora_inicio}} - {{Contract.hora_fin}}</h2>
+    <p>{{Contract.contenido|linebreaks}}</p>
+</div>
+
+
+
+
+<style>
+    .dj-banner {
+        margin: 30px 0;
+        position: relative;
+    }
+
+    .dj-banner .dj-bg {
+        background-color: #F8A796;
+    }
+
+    .dj-banner .dj-bg img {
+        display: block;
+        margin: 20px auto;
+        padding: 20px 0;
+    }
+
+    .dj-banner .dj-text {
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+    @media screen and (min-width:768px) {
+        .dj-banner .dj-bg img {
+            margin-right: 100px;
+        }
+
+        .dj-banner .dj-text {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            transform: translate(-10%, -50%);
+            width: 50%;
+            text-align: left;
+        }
+
+        .dj-banner .dj-text h1 {
+            font-size: calc(2*1.5vw);
+        }
+
+        .dj-banner .dj-text p {
+            font-size: calc(1.2*1.5vw);
+        }
+    }
+
+    .img_a {
+        border-radius: 15px;
+        box-shadow: 0 3px 5px rgba(15, 15, 15, 15);
+    }
+
+    body {
+        background-color: #FCFAF9;
+    }
+
+    .nav-link {
+        font-size: 30px;
+    }
+    .pp{
+        font-size: 30px;
+    }
+</style>
+{%endblock%}

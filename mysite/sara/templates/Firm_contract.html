@@ -1,8 +1,13 @@
 {%extends 'Navigation.html'%}
 {%block content%}  
 <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/heroes/">
-<!-- Replace "test" with your own sandbox Business account app client ID -->
-<script src="https://www.paypal.com/sdk/js?client-id=AROiVbckHn81i8o2Rexwo1193dp3Foas-904O-exbQlwpCufNsGkKTlhJ5rdWMHp0D1mFxJv3JgrgTv-&currency=USD"></script>
+
+<main calss = "container">
+  <div class="row">
+  <div class = "col-md-4 offset-md-4">
+      <p>{{error}}</p>
+      <!-- Replace "test" with your own sandbox Business account app client ID -->
+<script src="https://www.paypal.com/sdk/js?client-id=AROiVbckHn81i8o2Rexwo1193dp3Foas-904O-exbQlwpCufNsGkKTlhJ5rdWMHp0D1mFxJv3JgrgTv-&currency=MXN"></script>
 <!-- Set up a container element for the button -->
 <div id="paypal-button-container"></div>
 <script>
@@ -12,7 +17,7 @@
       return actions.order.create({
         purchase_units: [{
           amount: {
-            value: '77.44' // Can also reference a variable or function
+            value: '1' // Can also reference a variable or function
           }
         }]
       });
@@ -29,19 +34,32 @@
         // const element = document.getElementById('paypal-button-container');
         // element.innerHTML = '<h3>Thank you for your payment!</h3>';
         // Or go to another URL:  actions.redirect('thank_you.html');
+        document.getElementById('pagado').submit();
       });
     }
   }).render('#paypal-button-container');
 </script>
+  </div>
+  </div>
+</main>
 
-<textarea name="ContractTerms" id="" cols="30" rows="10" style="visibility:hidden">
-{% for Contract_text in Contract_text %}{{Contract_text.texto}}{% endfor %}
+<form action="#" id = "pagado" method="POST">
+  {% csrf_token %}
+  
+
+<textarea name="ContractTerms" cols="30" rows="10" >
+{%if texto %}{{texto}}{%else%}{% for Contract_text in Contract_text %}{{Contract_text.texto}}{% endfor %}
 {% for N_hours in N_hours %}Duracion del evento: {{N_hours}} horas {% endfor %}
-{% for Pack in Pack %}{{Pack.descripcion}} {% endfor %}
+{{Pack.descripcion}}
 Y como extra añadira:
 {% for Extras in Extras %}{{Extras.descripcion}}{% endfor %}
-
+{% endif %}
 </textarea>
+<input type="text" name="fecha_inicio" value ="{{fi}}" id="id_fecha_inicio" >
+<input type="text" name="hora_inicio" value ="{{hi}}" id="id_hora_inicio"  >
+<input type="text" name="hora_fin" value = "{{hf}}" required="" id="id_fecha_fin"  >
+
+</form>
 <style>
     p{
         font-size: 30px;
@@ -51,6 +69,9 @@ Y como extra añadira:
     }
     .pp2{
         font-size: 20px;
+    }
+    #pagado{
+      display: none;
     }
 </style>
 

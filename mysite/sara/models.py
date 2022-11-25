@@ -75,6 +75,10 @@ class Contrato_rentado(models.Model):
     contenido = models.TextField(max_length=1000)
     cliente = models.ForeignKey(User, on_delete = models.DO_NOTHING)
     rentero = models.IntegerField()
+    fecha_inicio = models.DateField()
+    hora_inicio = models.TimeField()
+    fecha_fin = models.DateField()
+    hora_fin = models.TimeField()
     def _str_(self):
         return "Contrato firmado por " + self.cliente + " con " + self.rentero 
 
